@@ -7,7 +7,7 @@ function updateGallery(images) {
     const markup = itemTpl(images);
   
     markupGalleryRef.insertAdjacentHTML("beforeend", markup);
-    infiniteLoad(fetchImages);
+    
 }
 
 export default updateGallery;

@@ -1,7 +1,7 @@
 import { formRef, markupGalleryRef, loadBtnRef } from './refs';
 import apiService from './apiService';
 import updateGallery from './update-gallery';
-// import infiniteLoad from './infinite-load';
+import infiniteLoad from './infinite-load';
 formRef.addEventListener('submit', searchImages);
 
 function searchImages(event) {
@@ -13,13 +13,20 @@ function searchImages(event) {
   formRef.reset();
   
   apiService.resetPage();
-  
-  apiService.fetchImages().then(images => {
-    updateGallery(images);
-  });
+
+  fetchAll();
 };
 
-// infiniteLoad(fetchImages);
+function fetchAll() {
+    apiService.fetchImages().then(images => {
+      updateGallery(images);  
+    
+      if (images.length > 0) {
+        infiniteLoad(fetchAll);
+      }
+  });
+}
+
 
 // loadBtnRef.addEventListener('click', () => {
 //   apiService.fetchImages().then(images => {
